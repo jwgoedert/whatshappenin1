@@ -1,6 +1,9 @@
+@import url(https://fonts.googleapis.com/css?family=Quicksand:300,400,700);
+
 body {
   margin: 0;
-  font-size: 16px;
+  font-size: 24px;
+  font-family: Quicksand;
 }
 
 a {
@@ -88,10 +91,27 @@ sidebar {
 div#top-bar {
   background-color: lime-green;
 }
+
 #react-app {
-  background-color: rgb(148, 236, 0);
-  min-height : 900px;
+ background-color: rgb(148, 236, 0);
+ min-height : 900px;
+font-family: quicksand;
+ font-weight: lighter;
+ background: rgba(92,129,202,1);
+ background:
+   -moz-linear-gradient(
+     left,
+     rgba(190, 109, 185,1) 0%,
+     rgba(85, 40, 91,1) 100%
+ );
+ background:
+   -webkit-linear-gradient(
+       left,
+       rgba(190, 109, 185,1) 0%,
+       rgba(85, 40, 91,1) 100%
+ );
 }
+
 .cardTitle {
   background-color: green;
 }

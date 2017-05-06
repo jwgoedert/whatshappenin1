@@ -4,7 +4,7 @@ import EventDetail from './subcomponents/EventDetail.jsx';
 import Map from './subcomponents/Map.jsx';
 import EventList from './subcomponents/eventList.jsx';
 
-const Dashboard = ({ data, setEveList, setDetBox, setCoordinates, coordinates }) => (
+const ProfilePage = ({ data, setEveList, setDetBox, setCoordinates, coordinates }) => (
   <Card className="container">
     <CardTitle
       className="cardTitle"
@@ -34,11 +34,10 @@ const Dashboard = ({ data, setEveList, setDetBox, setCoordinates, coordinates })
   </Card>
 );
 
-Dashboard.propTypes = {
-  data: React.PropTypes.object.isRequired,
-  setEveList: React.PropTypes.func.isRequired,
-  setDetBox: React.PropTypes.func.isRequired,
-  setCoordinates: React.PropTypes.func.isRequired,
+ProfilePage.propTypes = {
+  setEveList: PropTypes.func.isRequired,
+  setDetBox: PropTypes.func.isRequired,
+  setCoordinates: PropTypes.func.isRequired,
 };
 
-export default Dashboard;
+export default ProfilePage;
