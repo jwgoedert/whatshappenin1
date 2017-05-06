@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CardText } from 'material-ui/Card';
+import { Card, CardText } from 'material-ui/Card';
 import Auth from '../modules/Auth.js';
 import EventList from '../components/subcomponents/eventList.jsx';
 import EventForm from '../components/subcomponents/EventForm.jsx';
@@ -184,15 +184,11 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <main className="container">
-        <div id="userpage">
+      <div id="userpage">
+        <Card className="container" style={{ fontSize: '16px', backgroundColor: 'transparent' }}>
           <section id="map">
             {this.state.successMessage &&
               <CardText className="success-message">{this.state.successMessage}</CardText>}
-            <RaisedButton
-              label="makeevent"
-              onTouchTap={this.handleToggle}
-            />
             <Drawer
               openSecondary
               open={this.state.open}
@@ -210,6 +206,10 @@ class Dashboard extends Component {
               />
             </Drawer>
             <Map coordinates={this.state.location} geoCode={this.setCoordinates} />
+            <RaisedButton
+              label="makeevent"
+              onTouchTap={this.handleToggle}
+            />
             <EventDetail event={this.state.detailsBox} setCoordinates={this.setCoordinates} />
           </section>
           <section id="userprofile" className="col-lg-4" />
@@ -220,8 +220,8 @@ class Dashboard extends Component {
               setDetailsBox={this.setDetailsBox}
             />
           </sidebar>
-        </div>
-      </main>
+        </Card>
+      </div>
     );
   }
 

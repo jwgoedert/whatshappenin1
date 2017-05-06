@@ -5,13 +5,9 @@ import Map from './subcomponents/Map.jsx';
 import EventList from './subcomponents/eventList.jsx';
 
 const ProfilePage = ({ data, setEveList, setDetBox, setCoordinates, coordinates }) => (
-  <Card className="container">
-    <CardTitle
-      className="cardTitle"
-      title="Whats Happenin'"
-      subtitle="Find local hit events!"
-    />
+  <Card className="container" style={{ fontSize: '16px', backgroundColor: 'transparent' }}>
     <div>
+      fjdfzfhgdhjaf
       <section id="eventpagebody">
         <section id="map" className="col-lg-4">
           <section >
@@ -29,10 +25,10 @@ const ProfilePage = ({ data, setEveList, setDetBox, setCoordinates, coordinates 
           />
         </sidebar>
       </section>
-    </div>)
-    {data && <CardText style={{ fontSize: '16px', color: 'green' }}>{data.secretData}</CardText>}
+    </div>
   </Card>
 );
+    // {data && <CardText style={{ fontSize: '16px', color: 'green' }}>{data.secretData}</CardText>}
 
 ProfilePage.propTypes = {
   setEveList: PropTypes.func.isRequired,

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Auth from '../modules/Auth.js';
 import Profile from '../components/Profile.jsx';
 
-class ProfilePage extends React.Component {
+class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -124,7 +124,7 @@ class Map extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit} >
           <input id="address" name="location" onChange={this.handleChange} type="text" />
-          <input type="submit" value="Geocode" />
+          <input type="submit" value="Search Address" />
         </form>
         <Gmaps
           width={'500px'}
@@ -133,7 +133,7 @@ class Map extends React.Component {
           lng={this.state.location.longitude}
           zoom={12}
           loadingMessage={'Be happy'}
-          params={{ v: '3.exp', key: 'Map' }}
+          params={{ v: '3.exp', key: 'Map Me' }}
           onMapCreated={this.onMapCreated}
         >
           <Marker
