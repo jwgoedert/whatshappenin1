@@ -84,8 +84,8 @@ const SignUpForm = ({
 SignUpForm.propTypes = {
   onSubmit: React.PropTypes.func.isRequired,
   onChange: React.PropTypes.func.isRequired,
-  errors: React.PropTypes.object.isRequired,
-  user: React.PropTypes.object.isRequired
+  // errors: React.PropTypes.object.isRequired,
+  // user: React.PropTypes.object.isRequired
 };
 
 export default SignUpForm;

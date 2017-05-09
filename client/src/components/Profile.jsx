@@ -7,7 +7,6 @@ import EventList from './subcomponents/eventList.jsx';
 const ProfilePage = ({ data, setEveList, setDetBox, setCoordinates, coordinates }) => (
   <Card className="container" style={{ fontSize: '16px', backgroundColor: 'transparent' }}>
     <div>
-      fjdfzfhgdhjaf
       <section id="eventpagebody">
         <section id="map" className="col-lg-4">
           <section >

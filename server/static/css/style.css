@@ -4,6 +4,18 @@ body {
   margin: 0;
   font-size: 24px;
   font-family: quicksand;
+  background:
+    -moz-linear-gradient(
+      left,
+      rgba(190, 109, 185,1) 0%,
+      rgba(85, 40, 91,1) 100%
+  );
+  background:
+    -webkit-linear-gradient(
+        left,
+        rgba(190, 109, 185,1) 0%,
+        rgba(85, 40, 91,1) 100%
+  );
 }
 
 a {
@@ -54,7 +66,7 @@ sidebar {
   padding-left: 20px;
 }
 article.eventdetail {
-  border-bottom-style: groove;
+  /*border-bottom-style: groove;*/
   margin-bottom: 5px;
 }
 .card {
@@ -79,7 +91,6 @@ article.eventdetail {
 }
 #userpage {
   display:flex;
-  /*text-align: center;*/
 }
 #eventpagebody {
   display : flex;
@@ -115,15 +126,25 @@ sidebar {
   background-color: gray;
 }
 
-#eventpagebody {
-  background-color: transparent;
-}
-
 #map {
-  max-width: 500px
+  /*max-width: 500px*/
+  padding: 10px 10px 10px 75px;
 }
-
+#btn {
+  height: 30px;
+}
+#address {
+  width: 350px;
+  height: 30px;
+}
+/*#search_address {
+   width: 500px;
+   padding: 10px 10px 10px 10px;
+}
+#map_div {
+  padding: 0px 10px 10px 10px;
+}*/
 /*this is for that geo location thing and the event form*/
 form {
-  background-color: orange;
+  text-align: center;
 }

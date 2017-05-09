@@ -1,19 +1,30 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const TwitterPackage = require('twitter');
 const Event = require('./server/controllers/events');
 const Path = require('path');
 const User = require('./server/models/user.js');
+
 require('dotenv').config();
 // connect to the database and load models
-require('./server/models').connect(process.env.EPMONGO || process.env.MONGO_KEY);
+require('./server/models').connect(process.env.MONGO_KEY);
 
+const twitSecret = {
+  consumer_key: process.env.TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
+};
+
+const PORT = process.env.PORT || 3000;
 const app = express();
 // tell the app to look for static files in these directories
 app.use(express.static('./server/static/'));
 app.use(express.static('./client/dist/'));
 // tell the app to parse HTTP body messages
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 // pass the passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
@@ -71,12 +82,51 @@ app.post('/addAttendee', (req, res) => {
   Event.findOneandUpdate({ title: req.params.title }, { attendees: { [req.param.username]: true } });
 });
 
+app.get('/user/picture/*', (req, res) => {
+  console.log(req.params[0]);
+  User.findOne({ email: req.params[0] }, (err, result) => {
+    console.log(result, 'result of find picture on user');
+    res.send(200, result.image);
+  });
+});
+
+app.put('/add/picture', (req, res) => {
+  //Need to get clientID then use User model to add that user
+  console.log(req.body, 'this is the req.est body to add a pic')
+  User.findOneAndUpdate({ email: req.body.email }, { image: req.body.pictureUrl }, {}, (err, data) => {
+    if (err) { console.error(err); }
+    console.log(data, 'data');
+    res.send('sup');
+  });
+});
+
+const Twitter = new TwitterPackage(twitSecret);
+
+Twitter.stream('statuses/filter', { track: '#Hola' }, (stream) => {
+  stream.on('data', (tweet) => {
+    // console.log(tweet, tweet.text, 'this is a tweet!');
+    //enter tweet into database
+  });
+  stream.on('error', (error) => {
+    console.error(error);
+  });
+});
+//maybe need to store this in the database????
+
+
+
+
 app.get('*', (req, res) => {
   res.sendFile(Path.resolve(__dirname, './server/static/index.html'));
 });
 
 
+
+
 // start the server
-app.listen(process.env.PORT || 3000, () => {
-  console.log('Server is running on http://localhost:3000 or http://127.0.0.1:3000');
+app.listen(PORT, (err, success) => {
+  if (err) {
+    return console.error(err, 'Error!!!!');
+  }
+  return console.log(`Server is running on ${PORT}`);
 });

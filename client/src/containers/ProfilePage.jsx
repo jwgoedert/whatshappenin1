@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
+import { Timeline } from 'react-twitter-widgets';
+import Dropzone from 'react-dropzone';
+import request from 'superagent';
 import Auth from '../modules/Auth.js';
 import Profile from '../components/Profile.jsx';
+
+const axios = require('axios');
+
+const CLOUDINARY_UPLOAD_PRESET = 'ofoowivp';
+const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dzwquspqa/upload';
 
 class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      email: localStorage.email,
+      picture: '',
+      uploadedFileCloudinaryUrl: '',
       secretData: '',
       eventList: [],
       detailsBox: {
@@ -27,6 +38,7 @@ class ProfilePage extends Component {
     this.setCoordinates = this.setCoordinates.bind(this);
     this.setDetailsBox = this.setDetailsBox.bind(this);
     this.setEventList = this.setEventList.bind(this);
+    this.getPicture();
   }
 
   /**
@@ -81,14 +93,68 @@ class ProfilePage extends Component {
   setCoordinates(location) {
     this.setState({ location });
   }
+
+  onImageDrop(files) {
+    this.setState({
+      uploadedFile: files[0]
+    });
+
+    this.handleImageUpload(files[0]);
+  }
+
+  handleImageUpload(file) {
+    let upload = request.post(CLOUDINARY_UPLOAD_URL)
+                        .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+                        .field('file', file);
+
+    upload.end((err, response) => {
+      if (err) {
+        console.error(err);
+      }
+
+      if (response.body.secure_url !== '') {
+        this.setState({
+          uploadedFileCloudinaryUrl: response.body.secure_url
+        });
+        console.log(this.state.uploadedFileCloudinaryUrl, 'the url to find image');
+        axios.put('/add/picture', { email: this.state.email, pictureUrl: this.state.uploadedFileCloudinaryUrl });
+        console.log(JSON.parse(localStorage.profile).clientID);
+        
+
+      }
+    });
+  }
+
+  getPicture() {
+    axios.get(`/user/picture/${this.state.email}`).then((suc) => {
+      console.log(suc.data, 'success in getting user picture???');
+      this.setState({ picture: suc.data || '' });
+    });
+  }
+
+// want to check if user array of pics is empty. if not, display image. else display their pic
+// store users in DB using clientID???
   render() {
-    return (<Profile
-      coordinates={this.state.location}
-      setCoordinates={this.setCoordinates}
-      setDetBox={this.setDetailsBox}
-      setEveList={this.setEventList}
-      data={this.state}
-    />);
+    return (
+      <div class="row">
+        <div class="col-md-2">
+        {console.log(this.state.picture, this.state.uploadedFileCloudinaryUrl, 'both params')}
+          { this.state.picture === '' && this.state.uploadedFileCloudinaryUrl === '' ?
+            <div className="FileUpload">
+              <Dropzone
+                multiple={false}
+                accept="image/*"
+                onDrop={this.onImageDrop.bind(this)}>
+                <p>Drop an image or click to select a file to upload.</p>
+              </Dropzone>
+            </div> : <img src={this.state.uploadedFileCloudinaryUrl || this.state.picture} alt="you!" /> }
+        </div>
+
+        <div class="col-md-10">
+          <h4>Hello World</h4>
+        </div>
+      </div>
+    );
   }
 
 }

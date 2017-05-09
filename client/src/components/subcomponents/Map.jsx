@@ -59,9 +59,9 @@ class Map extends React.Component {
       const address = nextprops.coordinates.address;
       this.setState({
         location: {
-          latitude: latitude,
-          longitude: longitude,
-          address: address
+          latitude,
+          longitude,
+          address
         },
       });
     }
@@ -122,33 +122,37 @@ class Map extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit} >
-          <input id="address" name="location" onChange={this.handleChange} type="text" />
-          <input type="submit" value="Search Address" />
-        </form>
-        <Gmaps
-          width={'500px'}
-          height={'400px'}
-          lat={this.state.location.latitude}
-          lng={this.state.location.longitude}
-          zoom={12}
-          loadingMessage={'Be happy'}
-          params={{ v: '3.exp', key: 'Map Me' }}
-          onMapCreated={this.onMapCreated}
-        >
-          <Marker
+        <div id="search_address">
+          <form onSubmit={this.handleSubmit}>
+            <input id="address" name="location" onChange={this.handleChange} type="text" />
+            <input id="btn" type="submit" value="Search Address" />
+          </form>
+        </div>
+        <div id="map_div">
+          <Gmaps
+            width={'500px'}
+            height={'400px'}
             lat={this.state.location.latitude}
             lng={this.state.location.longitude}
-            draggable
-            onDragEnd={this.onDragEnd}
-          />
-          <InfoWindow
-            lat={this.state.location.latitude}
-            lng={this.state.location.longitude}
-            onCloseClick={this.onCloseClick}
-            content={this.state.location.address}
-          />
-        </Gmaps>
+            zoom={12}
+            loadingMessage={'What\'s Happenin\''}
+            params={{ v: '3.exp', key: 'map' }}
+            onMapCreated={this.onMapCreated}
+          >
+            <Marker
+              lat={this.state.location.latitude}
+              lng={this.state.location.longitude}
+              draggable
+              onDragEnd={this.onDragEnd}
+            />
+            <InfoWindow
+              lat={this.state.location.latitude}
+              lng={this.state.location.longitude}
+              onCloseClick={this.onCloseClick}
+              content={this.state.location.address}
+            />
+          </Gmaps>
+        </div>
       </div>
     );
   }

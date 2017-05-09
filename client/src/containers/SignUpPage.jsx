@@ -18,6 +18,7 @@ class SignUpPage extends React.Component {
         email: '',
         name: '',
         password: '',
+        image: '',
         location: '',
       },
     };
@@ -40,8 +41,9 @@ class SignUpPage extends React.Component {
     const name = encodeURIComponent(this.state.user.name);
     const email = encodeURIComponent(this.state.user.email);
     const password = encodeURIComponent(this.state.user.password);
+    const image = encodeURIComponent(this.state.user.image);
     const location = encodeURIComponent(this.state.user.location);
-    const formData = `username=${username}&name=${name}&email=${email}&password=${password}&location=${location}`;
+    const formData = `username=${username}&name=${name}&email=${email}&password=${password}&image=${image}&location=${location}`;
 
     fetch('/auth/signup', {
       method: 'POST',

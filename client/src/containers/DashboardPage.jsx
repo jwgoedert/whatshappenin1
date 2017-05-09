@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardText } from 'material-ui/Card';
+import { ButtonToolbar, Button, Col, Well } from 'react-bootstrap';
 import Auth from '../modules/Auth.js';
 import EventList from '../components/subcomponents/eventList.jsx';
 import EventForm from '../components/subcomponents/EventForm.jsx';
@@ -185,42 +186,52 @@ class Dashboard extends Component {
   render() {
     return (
       <div id="userpage">
-        <Card className="container" style={{ fontSize: '16px', backgroundColor: 'transparent' }}>
-          <section id="map">
-            {this.state.successMessage &&
-              <CardText className="success-message">{this.state.successMessage}</CardText>}
-            <Drawer
-              openSecondary
-              open={this.state.open}
-              width={400}
-            >
-              <EventForm
-                errors={this.state.errors}
-                closeDrawer={this.handleToggle}
-                eventDetails={this.state.eventDetails}
-                eveChange={this.changeEvent}
-                processForm={this.processEventForm}
-                handleTime={this.handleTime}
-                handleDate={this.handleDate}
-                location={this.state.location}
+        <Col lg={12}>
+          <Col md={6} >
+            <Well style={{ fontSize: '16px', backgroundColor: 'transparent', border: 'none' }}>
+              <Map coordinates={this.state.location} geoCode={this.setCoordinates} />
+            </Well>
+            <Well style={{ fontSize: '16px', backgroundColor: 'transparent', border: 'none' }}>
+              <RaisedButton
+                label="makeevent"
+                onTouchTap={this.handleToggle}
               />
-            </Drawer>
-            <Map coordinates={this.state.location} geoCode={this.setCoordinates} />
-            <RaisedButton
-              label="makeevent"
-              onTouchTap={this.handleToggle}
-            />
-            <EventDetail event={this.state.detailsBox} setCoordinates={this.setCoordinates} />
-          </section>
-          <section id="userprofile" className="col-lg-4" />
-          <sidebar className="col-lg-4">
-            <EventList
-              setCoordinates={this.setCoordinates}
-              eventlist={this.state.eventList}
-              setDetailsBox={this.setDetailsBox}
-            />
-          </sidebar>
-        </Card>
+            </Well>
+            <Well>
+              <EventDetail event={this.state.detailsBox} setCoordinates={this.setCoordinates} />
+            </Well>
+          </Col>
+          <Col md={6} className="container" style={{ fontSize: '16px', backgroundColor: 'transparent' }}>
+            <section >
+              {this.state.successMessage &&
+                <CardText className="success-message">{this.state.successMessage}</CardText>}
+              <Drawer
+                openSecondary
+                open={this.state.open}
+                width={400}
+              >
+                <EventForm
+                  errors={this.state.errors}
+                  closeDrawer={this.handleToggle}
+                  eventDetails={this.state.eventDetails}
+                  eveChange={this.changeEvent}
+                  processForm={this.processEventForm}
+                  handleTime={this.handleTime}
+                  handleDate={this.handleDate}
+                  location={this.state.location}
+                />
+              </Drawer>
+            </section>
+            <section id="userprofile" className="col-lg-4" />
+            <sidebar className="col-lg-4">
+              <EventList
+                setCoordinates={this.setCoordinates}
+                eventlist={this.state.eventList}
+                setDetailsBox={this.setDetailsBox}
+              />
+            </sidebar>
+          </Col>
+        </Col>
       </div>
     );
   }

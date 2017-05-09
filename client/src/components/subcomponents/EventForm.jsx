@@ -1,9 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import TimePicker from 'material-ui/TimePicker';
 import DatePicker from 'material-ui/DatePicker';
-// import { Gmaps, Marker, geocoder, InfoWindow } from 'react-gmaps';
 
 const style = {
   marginLeft: 20,
@@ -36,11 +36,8 @@ const EventForm = ({
           id="locationslot"
           name="location"
           type="location"
-          hintText="Where tha party at?!"
+          hintText="Where Is Your Event Located?"
           style={style}
-          value={`${location.address} \
-          longitude: ${location.longitude}, \
-          latitude: ${location.latitude}`}
           onChange={eveChange}
           errorText={errors.location}
         />
@@ -49,7 +46,7 @@ const EventForm = ({
         <TimePicker
           name="eventTime"
           type="eventTime"
-          hintText="12hr Format"
+          hintText="What Time Is Your Event?"
           style={style}
           onChange={handleTime}
           value={eventDetails.eventTimeObj}
@@ -59,7 +56,7 @@ const EventForm = ({
       <div>
         <DatePicker
           type="eventDate"
-          hintText="Portrait Dialog"
+          hintText="Enter Your Date"
           name="eventDate"
           style={style}
           onChange={handleDate}
@@ -80,17 +77,6 @@ const EventForm = ({
       </div>
       <div>
         <TextField
-          name="busLink"
-          type="busLink"
-          hintText="Promote your business' website"
-          style={style}
-          value={eventDetails.busLink}
-          onChange={eveChange}
-          errorText={errors.busLink}
-        />
-      </div>
-      <div>
-        <TextField
           name="businessName"
           type="businessName"
           hintText="Are you a business? What's your name?"
@@ -101,10 +87,21 @@ const EventForm = ({
       </div>
       <div>
         <TextField
+          name="busLink"
+          type="busLink"
+          hintText="Promote your business' website here!"
+          style={style}
+          value={eventDetails.busLink}
+          onChange={eveChange}
+          errorText={errors.busLink}
+        />
+      </div>
+      <div>
+        <TextField
           multiLine
           name="tags"
           type="tags"
-          hintText="tags"
+          hintText="#HASHTAG"
           style={style}
           value={eventDetails.tags}
           onChange={eveChange}
@@ -115,7 +112,7 @@ const EventForm = ({
           multiLine
           name="description"
           type="description"
-          hintText="Describe your sweet event"
+          hintText="What's Your Event About?"
           style={style}
           value={eventDetails.description}
           onChange={eveChange}
@@ -127,14 +124,16 @@ const EventForm = ({
     </form>;
 
 EventForm.propTypes = {
-  eventDetails: React.PropTypes.object.isRequired,
-  eveChange: React.PropTypes.func.isRequired,
-  processForm: React.PropTypes.func.isRequired,
-  handleTime: React.PropTypes.func.isRequired,
-  handleDate: React.PropTypes.func.isRequired,
-  closeDrawer: React.PropTypes.func.isRequired,
-  location: React.PropTypes.object.isRequired,
-  errors: React.PropTypes.object.isRequired,
+  // eventDetails: PropTypes.obj.isRequired,
+  eveChange: PropTypes.func.isRequired,
+  processForm: PropTypes.func.isRequired,
+  handleTime: PropTypes.func.isRequired,
+  handleDate: PropTypes.func.isRequired,
+  // closeDrawer: PropTypes.func.isRequired,
+  // location: PropTypes.obj.isRequired,
+  // errors: PropTypes.obj.isRequired,
 };
 
 export default EventForm;
+          // i go on line 41!!!!!!
+          // value={`${location.address}`}
