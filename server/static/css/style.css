@@ -137,6 +137,14 @@ sidebar {
   width: 350px;
   height: 30px;
 }
+.error_image {
+  padding: 0px 0px 0px 0px;
+  position: absolute;
+  margin: auto;
+}
+h4 {
+  border: 1px solid #777;
+}
 /*#search_address {
    width: 500px;
    padding: 10px 10px 10px 10px;
@@ -147,4 +155,8 @@ sidebar {
 /*this is for that geo location thing and the event form*/
 form {
   text-align: center;
+}
+#map_div{
+  margin-right: 30px;
+
 }

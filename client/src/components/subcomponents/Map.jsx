@@ -1,5 +1,6 @@
 import React from 'react';
 import { Gmaps, Marker, InfoWindow } from 'react-gmaps';
+import { Well, Col } from 'react-bootstrap';
 
 class Map extends React.Component {
 
@@ -46,10 +47,10 @@ class Map extends React.Component {
   componentWillMount() {
     navigator.geolocation.getCurrentPosition((location) => {
       fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.coords.latitude},${location.coords.longitude}`)
-      .then(response => response.json())
-      .then((json) => {
-        this.setStateGeoLocate(json);
-      });
+        .then(response => response.json())
+        .then((json) => {
+          this.setStateGeoLocate(json);
+        });
     });
   }
   componentWillReceiveProps(nextprops) {
@@ -102,19 +103,19 @@ class Map extends React.Component {
     event.preventDefault();
 
     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.search}`)
-    .then(response => response.json())
-    .then((json) => {
-      this.setStateGeoLocate(json);
-    });
+      .then(response => response.json())
+      .then((json) => {
+        this.setStateGeoLocate(json);
+      });
   }
-/**
- *
- * @param {event} form submission event
- * @param this, state, Takes the search position from state object
- *
- * @returns Sets the location of the map for a query, and sets the event form
- *          location parameter to the geolocation's coordinates.
- */
+  /**
+   *
+   * @param {event} form submission event
+   * @param this, state, Takes the search position from state object
+   *
+   * @returns Sets the location of the map for a query, and sets the event form
+   *          location parameter to the geolocation's coordinates.
+   */
   handleChange(event) {
     this.setState({ search: event.target.value });
   }
@@ -122,37 +123,43 @@ class Map extends React.Component {
   render() {
     return (
       <div>
-        <div id="search_address">
-          <form onSubmit={this.handleSubmit}>
-            <input id="address" name="location" onChange={this.handleChange} type="text" />
-            <input id="btn" type="submit" value="Search Address" />
-          </form>
-        </div>
-        <div id="map_div">
-          <Gmaps
-            width={'500px'}
-            height={'400px'}
-            lat={this.state.location.latitude}
-            lng={this.state.location.longitude}
-            zoom={12}
-            loadingMessage={'What\'s Happenin\''}
-            params={{ v: '3.exp', key: 'map' }}
-            onMapCreated={this.onMapCreated}
-          >
-            <Marker
-              lat={this.state.location.latitude}
-              lng={this.state.location.longitude}
-              draggable
-              onDragEnd={this.onDragEnd}
-            />
-            <InfoWindow
-              lat={this.state.location.latitude}
-              lng={this.state.location.longitude}
-              onCloseClick={this.onCloseClick}
-              content={this.state.location.address}
-            />
-          </Gmaps>
-        </div>
+        <Well>
+          <div id="search_address">
+            <form onSubmit={this.handleSubmit}>
+              <input id="address" name="location" onChange={this.handleChange} type="text" />
+              <input id="btn" type="submit" value="Search Address" />
+            </form>
+          </div>
+          <Col lg={10}>
+            <Well id="map-well">
+              <div id="map_div">
+                <Gmaps
+                  width={window.innerWidth / 4 + "px"}
+                  height={window.innerHeight / 2 + "px"}
+                  lat={this.state.location.latitude}
+                  lng={this.state.location.longitude}
+                  zoom={12}
+                  loadingMessage={'What\'s Happenin\''}
+                  params={{ v: '3.exp', key: 'key' }}
+                  onMapCreated={this.onMapCreated}
+                >
+                  <Marker
+                    lat={this.state.location.latitude}
+                    lng={this.state.location.longitude}
+                    draggable
+                    onDragEnd={this.onDragEnd}
+                  />
+                  <InfoWindow
+                    lat={this.state.location.latitude}
+                    lng={this.state.location.longitude}
+                    onCloseClick={this.onCloseClick}
+                    content={this.state.location.address}
+                  />
+                </Gmaps>
+              </div>
+            </Well>
+          </Col>
+        </Well>
       </div>
     );
   }

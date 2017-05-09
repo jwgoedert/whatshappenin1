@@ -3,10 +3,11 @@ import { Card, CardTitle } from 'material-ui/Card';
 
 
 const NotFound = () => (
-  <Card className="container">
+  <Card className="container" style={{ fontSize: '16px', backgroundColor: 'transparent', border: 'none' }}>
     <CardTitle title="Whoops!" subtitle="The location you requested doesn't exist!" />
     <img
-      src="http://mediacdn.snorgcontent.com/media/catalog/product/cache/1/image/85e4522595efc69f496374d01ef2bf13/s/h/shruglife_fullpic_1.jpg"
+      className="error_image"
+      src="http://www.wenoseo.com/images/404-error.png"
       alt="Shrugsville"
     />
   </Card>

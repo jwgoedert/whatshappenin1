@@ -78,8 +78,22 @@ app.get('/events', (req, res) => {
 });
 
 app.post('/addAttendee', (req, res) => {
-  console.log(req.params);
-  Event.findOneandUpdate({ title: req.params.title }, { attendees: { [req.param.username]: true } });
+  console.log(req, 'req.body');
+  console.log(Event, 'event')
+  // Event.findOneandUpdate({ title: req.params.event },
+  //   { $set: { attendees: { [req.param.username]: true } } },
+  //   {}, (err, data) => {
+  //     if (err) { console.error(err, 'Error'); } else { console.log(data, 'Data'); res.send('gotcha'); }
+  //   });
+});
+
+app.post('/deleteAttendee', (req, res) => {
+  console.log(req, 'req.params');
+  // Event.findOneandUpdate({ title: req.params.event },
+  //  { attendees: { [req.param.username]: true } },
+  //   {}, (err, data) => {
+  //     if (err) { console.error(err, 'Error'); } else { console.log(data, 'Data'); res.send('gotcha'); }
+  //   });
 });
 
 app.get('/user/picture/*', (req, res) => {
@@ -91,8 +105,8 @@ app.get('/user/picture/*', (req, res) => {
 });
 
 app.put('/add/picture', (req, res) => {
-  //Need to get clientID then use User model to add that user
-  console.log(req.body, 'this is the req.est body to add a pic')
+  // Need to get clientID then use User model to add that user
+  console.log(req.body, 'this is the req.est body to add a pic');
   User.findOneAndUpdate({ email: req.body.email }, { image: req.body.pictureUrl }, {}, (err, data) => {
     if (err) { console.error(err); }
     console.log(data, 'data');
@@ -105,22 +119,23 @@ const Twitter = new TwitterPackage(twitSecret);
 Twitter.stream('statuses/filter', { track: '#Hola' }, (stream) => {
   stream.on('data', (tweet) => {
     // console.log(tweet, tweet.text, 'this is a tweet!');
-    //enter tweet into database
+    // enter tweet into database
   });
   stream.on('error', (error) => {
     console.error(error);
   });
 });
-//maybe need to store this in the database????
+// maybe need to store this in the database????
 
-
-
-
+// added this JavaScript/JSON snippet
+app.get('/user/events/*', (req, res) => {
+ // Events.find({ email: req.body.email }).then((person) => {
+  res.send(200, [{ "_id" : "591164baab50ff2b3997f4d7", "title" : "Party in the Dolphin", "eventTime" : "3:37 AM", "eventDate" : "Wed May 10 2017   ", "tags" : "#dolphinparty", "businessName" : "", "picLink" : "", "busLink" : "", "description" : "check out the dolphin", "location" : "748 Camp St, New Orleans, LA 70130, USA longitude: -90.0700232  , latitude: 29.945947", "eventTimeObj" : "2017-05-09T08:37:43Z", "eventDateObj" : "2017-05-10T05:00:00Z", "username" : "zachary", "__v" : 0 }, { "_id" : "591164baab50ff2b3997f4d7", "title" : "Jalso All Nighter", "eventTime" : "3:37 AM", "eventDate" : "Wed May 10 2017   ", "tags" : "#jalsoallnighter", "businessName" : "", "picLink" : "", "busLink" : "", "description" : "working on code", "location" : "748 Camp St, New Orleans, LA 70130, USA longitude: -90.0700232  , latitude: 29.945947", "eventTimeObj" : "2017-05-09T08:37:43Z", "eventDateObj" : "2017-05-10T05:00:00Z", "username" : "zachary", "__v" : 0 }]);
+ // });
+});
 app.get('*', (req, res) => {
   res.sendFile(Path.resolve(__dirname, './server/static/index.html'));
 });
-
-
 
 
 // start the server

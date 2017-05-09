@@ -201,7 +201,6 @@ class Dashboard extends Component {
               <EventDetail event={this.state.detailsBox} setCoordinates={this.setCoordinates} />
             </Well>
           </Col>
-          <Col md={6} className="container" style={{ fontSize: '16px', backgroundColor: 'transparent' }}>
             <section >
               {this.state.successMessage &&
                 <CardText className="success-message">{this.state.successMessage}</CardText>}
@@ -223,6 +222,7 @@ class Dashboard extends Component {
               </Drawer>
             </section>
             <section id="userprofile" className="col-lg-4" />
+            <Col md={6} className="container" style={{ fontSize: '16px', backgroundColor: 'transparent' }}>
             <sidebar className="col-lg-4">
               <EventList
                 setCoordinates={this.setCoordinates}

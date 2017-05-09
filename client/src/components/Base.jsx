@@ -6,12 +6,11 @@ import Auth from '../modules/Auth';
 const Base = ({ children }) => (
   <div>
     <div className="top-bar">
-      <div className="top-bar-left">
+      <div className="top-bar-left col-lg-4">
         <IndexLink to="/">What&apos;s Happenin&apos;</IndexLink>
       </div>
-
       {Auth.isUserAuthenticated() ? (
-        <div className="top-bar-right">
+        <div className="top-bar-right col-s-12 col-lg-8">
           <Link to="/profile">Profile</Link>&nbsp;
           <IndexLink
             activeClassName="active"

@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 
+const axios = require('axios');
 /**
 *
 * @param {coordinate string} will be a set of coordinates
@@ -41,31 +42,43 @@ const Event = ({ event, event: {
   }
 
   const addAttendee = function addAttendee() {
-    fetch('/addAttendee', { method: 'POST',
-      params: { username: localStorage.getItem('email'), event: title }
+    console.log('sup');
+    axios.post('/addAttendee', { method: 'POST',
+      body: { username: localStorage.getItem('email'), event: title }
     }).then((attended) => {
       if (attended) {
         event.attendees += 1;
       }
     });
   };
+  function decline() {
+    console.log('hello')
+    axios.post('/deleteAttendee/', { method: 'POST',
+      body: { username: localStorage.getItem('email'), event: title }
+    }).then((attended) => {
+      if (attended) {
+        event.attendees += 1;
+      }
+    });
+  }
   return (
     <article className="eventdetail">
       <div className="eventlistbox">
         <button type="button" onClick={setDetBox}>{title}</button>
-        <div>Poster: {username}</div>
+        <div>Host: {username}</div>
         <div>Event Time: {eventTime}</div>
         <div>Event Date: {eventDate}</div>
         <button type="button" onClick={setCoords}>Location: {location}</button>
         {businessName !== '' && <div>Business: {businessName}</div>}
         {busLink !== '' && <a target="_blank" rel="noreferrer noopener" href={busLink}>Website</a>}
       </div>
+      <button onClick={addAttendee}>Attending</button><button onClick={decline}>No Thanks</button>
     </article>
   );
 };
 
-Event.propTypes = {
-  event: PropTypes.object.isRequired,
-};
+// Event.propTypes = {
+//   event: PropTypes.obj.isRequired,
+// };
 
 export default Event;
