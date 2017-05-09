@@ -1,4 +1,6 @@
 import React from 'react';
+import { Well } from 'react-bootstrap';
+
 /**
 *
 * @param {coordinate string} will be a set of coordinates
@@ -54,28 +56,37 @@ const EventDetail = ({ event: { name,
   }
 
   return (
-    <article className="eventdetail">
-      <img alt="" id="image" className="col-sm-2" />
-      <section className="eventdescription">
-        <div className="col-md-3">
-          <img className="image" alt="" src={picLink} />
-          <br />
-          <a>{title}</a>
-          <div>Event Time: {eventTime}</div>
-          <div>Event Date: {eventDate}</div>
+    <div>
 
-          <button type="button" onClick={setMap}>Show Location on Map</button>
+      <div className="event-detail">
+        <article className="eventdetail">
+          <img alt="" id="image" className="col-sm-2" />
+          <section className="eventdescription">
+            <div className="col-md-12">
+              <img className="image" alt="" src={picLink} />
+              <br />
+              <Well>
+                <a>{title}</a>
+                <div>Event Time: {eventTime}</div>
+                <div>Event Date: {eventDate}</div>
 
-          {businessName !== '' && <div>Business: {businessName}</div>}
-          {busLink !== '' && <a target="_blank" rel="noreferrer noopener" href={busLink}>Website</a>}
-          <br />
+                <button type="button" onClick={setMap}>Show Location on Map</button>
 
-          <p>{description}</p>
-          <div>{tags}</div>
-          <button type="button" onClick={linkToCalender} >Add to Your Calender</button>
-        </div>
-      </section>
-    </article>
+                {businessName !== '' && <div>Business: {businessName}</div>}
+                {busLink !== '' && <a target="_blank" rel="noreferrer noopener" href={busLink}>Website</a>}
+                <br />
+
+                <p>{description}</p>
+                <div>{tags}</div>
+                <button type="button" onClick={linkToCalender} >Add to Your Calender</button>
+              </Well>
+            </div>
+
+          </section>
+        </article>
+      </div>
+
+    </div>
   );
 };
 

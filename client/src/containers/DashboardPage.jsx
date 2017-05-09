@@ -56,10 +56,10 @@ class Dashboard extends Component {
    * @returns Sets the state eventlist to the array of events
    */
     fetch('/events').then(events => events.json())
-    .then((events) => {
-      this.setState({ eventList: events });
-      this.setState({ detailsBox: events[0] });
-    }).catch(err => console.error(err));
+      .then((events) => {
+        this.setState({ eventList: events });
+        this.setState({ detailsBox: events[0] });
+      }).catch(err => console.error(err));
   }
   /**
    *
@@ -162,21 +162,21 @@ class Dashboard extends Component {
       }),
       body: formData,
     }).then(res => res.json())
-    .then((res) => {
-      if (res.success === false) {
-        this.setState({
-          errors: res.errors,
-          successMessage: null,
-        });
-      } else {
-        this.setState({
-          errors: {},
-          successMessage: res.message,
-        });
-        this.handleToggle();
-      }
-    })
-    .catch(err => `Whoops: ${err}`);
+      .then((res) => {
+        if (res.success === false) {
+          this.setState({
+            errors: res.errors,
+            successMessage: null,
+          });
+        } else {
+          this.setState({
+            errors: {},
+            successMessage: res.message,
+          });
+          this.handleToggle();
+        }
+      })
+      .catch(err => `Whoops: ${err}`);
   }
 
   handleToggle() {
@@ -185,44 +185,22 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div id="userpage">
-        <Col lg={12}>
-          <Col md={6} >
-            <Well style={{ fontSize: '16px', backgroundColor: 'transparent', border: 'none' }}>
-              <Map coordinates={this.state.location} geoCode={this.setCoordinates} />
-            </Well>
-            <Well style={{ fontSize: '16px', backgroundColor: 'transparent', border: 'none' }}>
-              <RaisedButton
-                label="makeevent"
-                onTouchTap={this.handleToggle}
-              />
-            </Well>
-            <Well>
-              <EventDetail event={this.state.detailsBox} setCoordinates={this.setCoordinates} />
-            </Well>
-          </Col>
-            <section >
-              {this.state.successMessage &&
-                <CardText className="success-message">{this.state.successMessage}</CardText>}
-              <Drawer
-                openSecondary
-                open={this.state.open}
-                width={400}
-              >
-                <EventForm
-                  errors={this.state.errors}
-                  closeDrawer={this.handleToggle}
-                  eventDetails={this.state.eventDetails}
-                  eveChange={this.changeEvent}
-                  processForm={this.processEventForm}
-                  handleTime={this.handleTime}
-                  handleDate={this.handleDate}
-                  location={this.state.location}
-                />
-              </Drawer>
-            </section>
-            <section id="userprofile" className="col-lg-4" />
-            <Col md={6} className="container" style={{ fontSize: '16px', backgroundColor: 'transparent' }}>
+      <div id="userpage" className="container">
+        <Col md={6} lg={6} >
+          <Well style={{ fontSize: '16px', backgroundColor: 'transparent', border: 'none' }}>
+            <Map coordinates={this.state.location} geoCode={this.setCoordinates} />
+          </Well>
+          <Well style={{ fontSize: '16px', backgroundColor: 'transparent', border: 'none' }}>
+            <RaisedButton
+              label="makeevent"
+              onTouchTap={this.handleToggle}
+            />
+          </Well>
+            <EventDetail event={this.state.detailsBox} setCoordinates={this.setCoordinates} />
+        </Col>
+        <section id="userprofile" className="col-lg-4" />
+        <Col md={6} lg={6} className="container" style={{ fontSize: '16px', backgroundColor: 'transparent' }}>
+          <Well>
             <sidebar className="col-lg-4">
               <EventList
                 setCoordinates={this.setCoordinates}
@@ -230,8 +208,28 @@ class Dashboard extends Component {
                 setDetailsBox={this.setDetailsBox}
               />
             </sidebar>
-          </Col>
+          </Well>
         </Col>
+        <section >
+          {this.state.successMessage &&
+            <CardText className="success-message">{this.state.successMessage}</CardText>}
+          <Drawer
+            openSecondary
+            open={this.state.open}
+            width={400}
+          >
+            <EventForm
+              errors={this.state.errors}
+              closeDrawer={this.handleToggle}
+              eventDetails={this.state.eventDetails}
+              eveChange={this.changeEvent}
+              processForm={this.processEventForm}
+              handleTime={this.handleTime}
+              handleDate={this.handleDate}
+              location={this.state.location}
+            />
+          </Drawer>
+        </section>
       </div>
     );
   }
